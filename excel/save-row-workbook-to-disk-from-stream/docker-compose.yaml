@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  exceljs:
+    container_name: save-row-workbook-to-disk-from-stream
+    build:
+      context: .
+    command: "npm start"
+    restart: unless-stopped

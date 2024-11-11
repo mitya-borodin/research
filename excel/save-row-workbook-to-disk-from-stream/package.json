@@ -1,0 +1,23 @@
+{
+  "name": "save-row-workbook-to-disk-from-stream",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "dev": "nodemon --config nodemon.json src/index.ts"
+  },
+  "private": "true",
+  "author": {
+    "name": "Borodin Dmitriy",
+    "email": "dmitriy@borodin.site"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/faker": "^6.6.11",
+    "@types/node": "^22.9.0",
+    "exceljs": "^4.4.0",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2"
+  }
+}
