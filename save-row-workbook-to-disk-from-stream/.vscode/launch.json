@@ -1,0 +1,67 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Build and migrate",
+			"type": "node",
+			"request": "launch",
+			"console": "integratedTerminal",
+			"runtimeExecutable": "yarn",
+			"runtimeArgs": ["db:upgrade"],
+			"skipFiles": ["<node_internals>/**"]
+		},
+		{
+			"name": "Dev financier:egypt-tax-report",
+			"type": "node",
+			"request": "launch",
+			"console": "integratedTerminal",
+			"runtimeArgs": ["dev:financier:egypt-tax-report"],
+			"runtimeExecutable": "yarn",
+			"skipFiles": ["<node_internals>/**"]
+		},
+		{
+			"name": "Dev financier:events",
+			"type": "node",
+			"request": "launch",
+			"console": "integratedTerminal",
+			"runtimeArgs": ["dev:financier:events"],
+			"runtimeExecutable": "yarn",
+			"skipFiles": ["<node_internals>/**"]
+		},
+		{
+			"name": "Test reg-report-are-form-one-service",
+			"type": "node",
+			"request": "launch",
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"program": "${workspaceFolder}/node_modules/.bin/jest",
+			"args": [
+				"--runTestsByPath",
+				"./src/modules/financier/core/application/application-services/reg-report-are-form-one/reg-report-are-form-one-service.spec.ts"
+			],
+			"disableOptimisticBPs": true,
+			"windows": {
+				"program": "${workspaceFolder}/node_modules/jest/bin/jest"
+			}
+		},
+		{
+			"name": "Test event-service",
+			"type": "node",
+			"request": "launch",
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"program": "${workspaceFolder}/node_modules/.bin/jest",
+			"args": [
+				"--runTestsByPath",
+				"./src/modules/financier/core/application/application-services/events/event-service.spec.ts"
+			],
+			"disableOptimisticBPs": true,
+			"windows": {
+				"program": "${workspaceFolder}/node_modules/jest/bin/jest"
+			}
+		}
+	]
+}
