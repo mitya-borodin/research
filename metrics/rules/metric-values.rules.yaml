@@ -4,12 +4,12 @@ groups:
       - record: grafana:variable:tenant:values
         expr: count by (tenant) ({default_metric="true"}) > 0
       - record: grafana:variable:namespace:values
-        expr: count by (namespace) ({default_metric="true"}) > 0
+        expr: count by (tenant, namespace) ({default_metric="true"}) > 0
       - record: grafana:variable:pod:values
-        expr: count by (pod) ({default_metric="true"}) > 0
+        expr: count by (tenant, namespace, pod) ({default_metric="true"}) > 0
       - record: grafana:variable:moleculer_node:values
-        expr: count by (moleculer_node) ({default_metric="true"}) > 0
+        expr: count by (tenant, namespace, pod, moleculer_node) ({default_metric="true"}) > 0
       - record: grafana:variable:service_name:values
-        expr: count by (service_name) ({application_metric="true"}) > 0
+        expr: count by (tenant, namespace, pod, moleculer_node, service_name) ({application_metric="true"}) > 0
       - record: grafana:variable:action:values
-        expr: count by (action) ({application_metric="true"}) > 0
+        expr: count by (tenant, namespace, pod, moleculer_node, service_name, action) ({application_metric="true"}) > 0
