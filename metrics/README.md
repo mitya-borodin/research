@@ -43,11 +43,42 @@ networks:
 ```yaml
 global:
   scrape_interval: 5s
+  evaluation_interval: 5s
+  scrape_timeout: 5s
 
 scrape_configs:
   - job_name: "nodejs-app"
     static_configs:
-      - targets: ["host.docker.internal:3001"] # порт твоего Node.js приложения
+      - targets: ["host.docker.internal:3001"] # порт Node.js приложения
+
+rule_files:
+  - "rules/metric-values.rules.yaml"
+```
+
+#### rules/metric-values.rules.yaml
+
+Это подготовка данных для вариантов переменных дашборда.
+
+Если не делать такую подготовку, то для каждой переменной будет выполняться запрос проверяющий всю БД прометея.
+
+А если если сделать, то будет точечный запрос к конкретной метрике, это максимально быстро.
+
+```yaml
+groups:
+  - name: metric-label-values.rules
+    rules:
+      - record: grafana:variable:tenant:values
+        expr: count by (tenant) ({default_metric="true"}) > 0
+      - record: grafana:variable:namespace:values
+        expr: count by (tenant, namespace) ({default_metric="true"}) > 0
+      - record: grafana:variable:pod:values
+        expr: count by (tenant, namespace, pod) ({default_metric="true"}) > 0
+      - record: grafana:variable:moleculer_node:values
+        expr: count by (tenant, namespace, pod, moleculer_node) ({default_metric="true"}) > 0
+      - record: grafana:variable:service_name:values
+        expr: count by (tenant, namespace, pod, moleculer_node, service_name) ({application_metric="true"}) > 0
+      - record: grafana:variable:action:values
+        expr: count by (tenant, namespace, pod, moleculer_node, service_name, action) ({application_metric="true"}) > 0
 ```
 
 #### Запуск
@@ -60,4 +91,4 @@ scrape_configs:
 
 И приступаем к созданию дашборда.
 
-#### Создание дашборда.
+#### Создание дашборда
