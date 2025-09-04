@@ -4,6 +4,13 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.retention.time=30d"
+      - "--storage.tsdb.retention.size=1024MB" # Лимит по размеру (в приоритете)
+      - "--web.enable-remote-write-receiver" # Для отправки данных в VictoriaMetrics etc.
+      - "--web.max-connections=50" # Лимит соединений
+      - "--storage.tsdb.wal-segment-size=10MB"
     ports:
       - "9090:9090"
     volumes:
